@@ -10,7 +10,7 @@ async function CreateInsurance(req, res){
             return res.status(400).json({ message: "An error occured creating insurance" });
         }
 
-        return res.status(200).json({ insurance });
+        return res.status(200).json({ newInsurance });
     } catch (error){
         console.log('An error occured creating insurance: ', error);
         return res.status(400).json({ message: "An error occured creating insurance: ", error});
