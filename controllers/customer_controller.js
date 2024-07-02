@@ -40,6 +40,22 @@ async function FindCustomer(req, res){
     }
 }
 
+async function GetCustomerList(req, res){
+
+    try{
+        const customers = await Customer.GetAllCustomer();
+
+        if(!customers){
+            return res.status(400).json({ message: "An error occured gettin customer list" });
+        }
+
+        return res.status(200).json({ customers });
+    } catch (error){
+        console.log("An error occured getting customer: ", error);
+        return res.status(400).json({ message: "An error occured getting customer: ", error});
+    }
+}
+
 async function UpdateCustomer(req, res){
     const { customer } = req.body;
 
@@ -74,4 +90,4 @@ async function DeleteCustomer(req, res){
     }
 }
 
-module.exports = { CreateCustomer, FindCustomer, UpdateCustomer, DeleteCustomer };
+module.exports = { CreateCustomer, FindCustomer, UpdateCustomer, DeleteCustomer, GetCustomerList };

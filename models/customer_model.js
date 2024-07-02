@@ -52,6 +52,16 @@ class Customer {
         }
     }
 
+    static async GetAllCustomer(){
+        try{
+            const customers = await prisma.customer.findMany({});
+            return customers;
+        } catch(error){
+            console.log("Error getting all customers: ", error);
+            return false;
+        }
+    }
+
     static async UpdateCustomer(customer) {
         try {
             const updatedCustomer = await prisma.customer.update({
