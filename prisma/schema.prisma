@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  user_id      Int       @id @default(autoincrement())
+  first_name   String
+  last_name    String
+  email        String    @unique
+  phone_number String?
+  company_name String?
+  created_at   DateTime  @default(now())
+  passwords    Password[]
+}
+
+model Password {
+  password_id   Int    @id @default(autoincrement())
+  password_hash String
+  user_id       Int
+  user          User   @relation(fields: [user_id], references: [user_id])
+}
+
+model Customer {
+  customer_id    Int      @id @default(autoincrement())
+  first_name     String
+  last_name      String
+  email          String?
+  phone_number   String?
+  identity_number String  @unique
+  birth_date     DateTime?
+  insures        Insure[]
+}
+
+model Insure {
+  insure_id      Int      @id @default(autoincrement())
+  customer_id    Int
+  insurance_type String
+  address        String?
+  document_no    String?
+  serial_no      String?
+  created_at     DateTime  @default(now())
+  end_date       DateTime  @default(dbgenerated("CURRENT_TIMESTAMP + INTERVAL '1 year'"))
+  creator_staff  String?
+  insure_amount  Float
+  is_active      Boolean  @default(true)
+  plate          String?
+  uavt_code      String?
+  issue_date     DateTime?
+  referance_code String?
+  customer       Customer @relation(fields: [customer_id], references: [customer_id])
+}
