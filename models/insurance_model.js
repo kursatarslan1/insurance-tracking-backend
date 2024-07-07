@@ -43,6 +43,20 @@ class Insurance{
             return false;
         } 
     }
+
+    static async GetInsureListByCustomerId(customer_id){
+        try{
+            const insureList = await prisma.insure.findMany({
+                where: {
+                    customer_id: customer_id
+                },
+            });
+            return insureList;
+        } catch (error){
+            console.error('Error getting insurance list:', error);
+            return false;
+        }
+    }
 }
 
 module.exports = { Insurance };

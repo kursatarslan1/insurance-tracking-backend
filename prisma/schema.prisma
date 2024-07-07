@@ -26,14 +26,14 @@ model Password {
 }
 
 model Customer {
-  customer_id    Int      @id @default(autoincrement())
-  first_name     String
-  last_name      String
-  email          String?
-  phone_number   String?
+  customer_id     Int      @id @default(autoincrement())
+  first_name      String
+  last_name       String
+  email           String?
+  phone_number    String?
   identity_number String  @unique
-  birth_date     DateTime?
-  insures        Insure[]
+  birth_date      DateTime?
+  insures         Insure[]
 }
 
 model Insure {
@@ -53,4 +53,19 @@ model Insure {
   issue_date     DateTime?
   referance_code String?
   customer       Customer @relation(fields: [customer_id], references: [customer_id])
+}
+
+model Offer {
+  offer_id          Int      @id @default(autoincrement())
+  customer_full_name String
+  insurance_type    String
+  address           String?
+  document_no       String?
+  serial_no         String?
+  created_at        DateTime @default(now())
+  insure_amount     Float
+  issue_date        DateTime?
+  plate             String?
+  referance_code    String?
+  uavt_code         String?
 }

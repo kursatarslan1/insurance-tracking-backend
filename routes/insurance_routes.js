@@ -7,5 +7,6 @@ router.use(express.json());
 
 router.post("/create", insuranceController.CreateInsurance);
 router.put("/insurance/:insurance_id", insuranceController.CancelInsurance);
+router.get("/insurances/:customer_id", insuranceController.GetInsureList);
 
 module.exports = router;

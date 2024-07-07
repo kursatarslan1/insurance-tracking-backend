@@ -34,4 +34,21 @@ async function CancelInsurance(req, res){
     }
 }
 
-module.exports = { CreateInsurance, CancelInsurance };
+async function GetInsureList(req, res){
+    const customer_id = parseInt(req.params.customer_id, 10);
+
+    try{
+        const insureList = await Insurance.GetInsureListByCustomerId(customer_id);
+
+        if(!insureList){
+            return res.status(400).json({ message: "An error occured getting insurance list" });
+        }
+
+        return res.status(200).json({ insureList });
+    } catch (error){
+        console.log("An error occured getting insurance list: ", error);
+        return res.status(400).json({ message: "An error occured getting insurance list: ", error});
+    }
+}
+
+module.exports = { CreateInsurance, CancelInsurance, GetInsureList };

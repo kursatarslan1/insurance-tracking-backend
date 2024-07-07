@@ -4,6 +4,11 @@ const prisma = new PrismaClient();
 class Customer {
     static async Create(customer) {
         try {
+            const birthDate = new Date(customer.birth_date);
+            if (isNaN(birthDate.getTime())) {
+                throw new Error('Invalid date format');
+            }
+    
             const newCustomer = await prisma.customer.create({
                 data: {
                     first_name: customer.first_name,
@@ -11,7 +16,7 @@ class Customer {
                     email: customer.email,
                     phone_number: customer.phone_number,
                     identity_number: customer.identity_number,
-                    birth_date: new Date(customer.birth_date),
+                    birth_date: birthDate,
                 },
             });
             return newCustomer;
@@ -85,7 +90,21 @@ class Customer {
 
     static async DeleteCustomerById(customer_id) {
         try {
-            const deletedCustomer = await prisma.customer.delete({
+            const insures = await prisma.insure.findMany({
+                where: {
+                    customer_id: customer_id,
+                },
+            });
+
+            for (const insure of insures) {
+                await prisma.insure.delete({
+                    where: {
+                        insure_id: insure.insure_id,
+                    },
+                });
+            }
+
+            const deletedCustomer = await prisma.customer.deleteMany({
                 where: {
                     customer_id: customer_id,
                 },
