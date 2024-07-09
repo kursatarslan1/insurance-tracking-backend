@@ -1,12 +1,12 @@
 const { Insurance } = require("../models/insurance_model");
 
 async function CreateInsurance(req, res){
-    const { insurance } = req.body;
+    const { insure } = req.body;
 
     try{
-        const newInsurance = await Insurance.Create(insurance);
+        const newInsurance = await Insurance.Create(insure);
 
-        if(!insurance){
+        if(!insure){
             return res.status(400).json({ message: "An error occured creating insurance" });
         }
 

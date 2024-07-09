@@ -13,6 +13,8 @@ class Insurance{
                     serial_no: insurance.serial_no,
                     creator_staff: insurance.creator_staff,
                     insure_amount: insurance.insure_amount,
+                    created_at: insurance.created_at,
+                    end_date: insurance.end_date,
                     is_active: true,
                     plate: insurance.plate,
                     uavt_code: insurance.uavt_code,
