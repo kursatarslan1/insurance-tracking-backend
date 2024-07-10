@@ -59,6 +59,16 @@ class Insurance{
             return false;
         }
     }
+
+    static async GetInsureList(){
+        try{
+            const insureList = await prisma.insure.findMany({});
+            return insureList;
+        } catch (error){
+            console.log("An error occured getting insure list: ", error);
+            return false;
+        }
+    }
 }
 
 module.exports = { Insurance };

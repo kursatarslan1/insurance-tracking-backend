@@ -4,7 +4,7 @@ async function CreateOffer(req, res){
     const { offer } = req.body;
 
     try{
-        const offerResult = await Offer.CreateOffer(offer);
+        const offerResult = await Offer.Create(offer);
 
         if(!offerResult){
             return res.status(400).json({ message: "An error occured creating offer" });

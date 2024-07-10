@@ -51,4 +51,19 @@ async function GetInsureList(req, res){
     }
 }
 
-module.exports = { CreateInsurance, CancelInsurance, GetInsureList };
+async function GetAllInsuresList(req, res){
+    try{
+        const insureList = await Insurance.GetInsureList();
+
+        if(!insureList){
+            return res.status(400).json({ message: "An error occured getting insurance list." });
+        }
+
+        return res.json({ insureList });
+    } catch (error){
+        console.log("An error occured getting insure list: ", error);
+        return res.status(400).json({ message: "An error occured getting insurance list: ", error });
+    }
+}
+
+module.exports = { CreateInsurance, CancelInsurance, GetInsureList, GetAllInsuresList };

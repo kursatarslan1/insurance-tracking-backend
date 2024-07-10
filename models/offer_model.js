@@ -6,7 +6,6 @@ class Offer{
         try{
             const newOffer = prisma.offer.create({
                 data:{
-                    offer_id: offer.offer_id,
                     customer_full_name: offer.customer_full_name,
                     insurance_type: offer.insurance_type,
                     address: offer.address,
